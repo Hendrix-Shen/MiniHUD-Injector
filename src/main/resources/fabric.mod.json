@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "minihud-extra",
-  "version": "${version}",
+  "id": "minihud-injector",
+  "version": "${mod_version}",
 
-  "name": "MiniHUD-extra",
-  "description": "Something modify for MiniHUD!",
+  "name": "MiniHUD-Injector",
+  "description": "We nedd I18n!",
   "authors": [
     {
       "name": "Hendrix_Shen",
@@ -14,9 +14,9 @@
     }
   ],
   "contact": {
-    "homepage": "https://github.com/Rebirth-of-Nirvanar",
-    "issues": "https://github.com/Rebirth-of-Nirvanar/MiniHUD-extra/issues",
-    "sources": "https://github.com/Rebirth-of-Nirvanar/MiniHUD-extra"
+    "homepage": "https://github.com/Hendrix-Shen",
+    "issues": "https://github.com/Rebirth-of-Nirvanar/MiniHUD-Injector/issues",
+    "sources": "https://github.com/Rebirth-of-Nirvanar/MiniHUD-Injector"
   },
 
   "license": "GPL-v3",
@@ -24,16 +24,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "PhoeniX.MiniHUDExtra.MiniHUDExtra"
+      "top.hendrixshen.MiniHUDInjector.MiniHUDInjector"
     ]
   },
   "mixins": [
-    "MiniHUD-extra.mixins.json"
+    "MiniHUD-Injector.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.7.4",
     "minecraft": "1.16.x",
-    "minihud": ">=0.19.0-dev.20201103.184029"
+    "minihud": ">=0.19.0-dev.20210215.151117"
   }
 }
