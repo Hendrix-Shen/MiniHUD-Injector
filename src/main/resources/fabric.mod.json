@@ -4,7 +4,7 @@
   "version": "${mod_version}",
 
   "name": "MiniHUD-Injector",
-  "description": "We nedd I18n!",
+  "description": "We need I18n!",
   "authors": [
     {
       "name": "Hendrix_Shen",
@@ -21,7 +21,7 @@
 
   "license": "GPL-v3",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "top.hendrixshen.MiniHUDInjector.MiniHUDInjector"
@@ -32,8 +32,8 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.7.4",
-    "minecraft": "1.16.x",
-    "minihud": ">=0.19.0-dev.20210215.151117"
+    "fabricloader": ">=0.9.0",
+    "minecraft": "*",
+    "minihud": "*"
   }
 }
