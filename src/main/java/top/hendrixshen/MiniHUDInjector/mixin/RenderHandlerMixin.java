@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Mixin(value = RenderHandler.class, remap = false)
 public class RenderHandlerMixin {
-    private static final Pattern TOKEN_PATTERN = Pattern.compile("[\\w]+: ");
+    private static final Pattern TOKEN_PATTERN = Pattern.compile("[\\w ]+: ");
     @Redirect(
             method = "addLine(Lfi/dy/masa/minihud/config/InfoToggle;)V",
             at = @At(
@@ -44,7 +44,6 @@ public class RenderHandlerMixin {
         for (String key: keys) {
             string = string.replace(key, I18n.translate(key));
         }
-        MiniHUDInjector.logger.info(string);
         return string;
     }
 }
