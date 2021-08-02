@@ -7,20 +7,20 @@
 [![Release](https://img.shields.io/github/v/release/Hendrix-Shen/MiniHUD-Injector?include_prereleases&style=flat-square)](https://github.com/Hendrix-Shen/MiniHUD-Injector/releases)
 [![Github Release Downloads](https://img.shields.io/github/downloads/Hendrix-Shen/MiniHUD-Injector/total?label=Github%20Release%20Downloads&style=flat-square)](https://github.com/Hendrix-Shen/MiniHUD-Injector/releases)
 
-[简体中文](./README_ZH_CN.md)
+[English](./README.md)
 
-We attach I18n to String.format function, so you can use resource packs to localize most HUD content.
-## Dependencies
-| Dependency          | Type               | Download                                                                                                                                     |
-| ------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Language-Loader-Fix | Highly recommended | [Github](https://github.com/Hendrix-Shen/Language-Loader-Fix)                                                                                |
-| MiniHUD             | Required           | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/miniHUD) &#124; [Masa WebSite](https://masa.dy.fi/mcmods/client_mods/?mod=minihud) |
-## Compiling
-- Clone the repository.
-- Open a command prompt/terminal to the repository directory.
-- Run `gradlew build` to build the mod.
-- The built jar file will be inside `build/libs/`.
-## Credit
-Thanks for the solution provided by [plusls](https://github.com/plusls).
-## License
-This project is available under the **GPLv3 license**. Feel free to learn from it and incorporate it in your own projects.
+我们将 I18n 方法附加到了 String.format 上, 因此您可以使用资源包本地化绝大多数 HUD 内容.
+## 依赖
+| 依赖                | 类型     | Download                                                                                                                                  |
+| ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Language-Loader-Fix | 强烈推荐 | [Github](https://github.com/Hendrix-Shen/Language-Loader-Fix)                                                                             |
+| MiniHUD             | 必须     | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/miniHUD) &#124; [Masa 网站](https://masa.dy.fi/mcmods/client_mods/?mod=minihud) |
+## 编译
+- 克隆本仓库.
+- 打开命令行并定位到仓库目录.
+- 运行 `gradlew build` 来编译模组.
+- 编译好的模组生成在 `build/libs/`.
+## 鸣谢
+感谢 [plusls](https://github.com/plusls) 提供的解决方案.
+## 许可
+此项目在 **GPLv3许可证** 下可用. 从中学习, 并将其融入到您自己的项目中.
