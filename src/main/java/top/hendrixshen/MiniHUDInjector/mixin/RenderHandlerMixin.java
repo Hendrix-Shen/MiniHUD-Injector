@@ -1,12 +1,11 @@
 package top.hendrixshen.MiniHUDInjector.mixin;
 
 import fi.dy.masa.minihud.event.RenderHandler;
-import net.minecraft.client.resource.language.I18n;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import top.hendrixshen.MiniHUDInjector.MiniHUDInjector;
+import top.hendrixshen.magiclib.untils.language.I18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,8 @@ public class RenderHandlerMixin {
             method = "addLine(Ljava/lang/String;)V",
             at = @At(
                     value = "HEAD"
-            )
+            ),
+            argsOnly = true
     )
     private String onAddLine(String string) {
         Matcher matcher = TOKEN_PATTERN.matcher(string);
@@ -42,7 +42,7 @@ public class RenderHandlerMixin {
             start = matcher.end();
         }
         for (String key: keys) {
-            string = string.replace(key, I18n.translate(key));
+            string = string.replace(key, I18n.getOriginal(key));
         }
         return string;
     }

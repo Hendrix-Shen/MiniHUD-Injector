@@ -1,48 +1,47 @@
-buildscript {
-    repositories {
-        maven {
-            name = "Fabric"
-            url = "https://maven.fabricmc.net/"
-        }
-    }
-}
-
 plugins {
-    id 'fabric-loom' version '0.7-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
 }
 
+static String getVersionString() {
+    String git_commit_id = System.getenv("GIT_COMMIT_ID")
+    if (git_commit_id != null) {
+        return git_commit_id
+    } else {
+        return new Date().format('yyyyMMdd.HHmmss')
+    }
+}
+
+group = "${project.group}.${project.mod_id}" as Object
+archivesBaseName = "${project.mod_file_name}"
+version = "${project.mod_version}+${getVersionString()}" as Object
+
 repositories {
+    // Add repositories to retrieve artifacts from in here.
+    // You should only use this when depending on other mods because
+    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repositories.
     maven {
-        url 'https://masa.dy.fi/maven'
+        url 'https://www.cursemaven.com/'
+    }
+    maven {
+        url 'https://maven.hendrixshen.top'
     }
 }
 
 dependencies {
-    // Minecraft, Fabric and mappings versions
+    // Development Environment
     minecraft("com.mojang:minecraft:${project.minecraft_version}")
-    mappings("net.fabricmc:yarn:${project.mappings_version}:v2")
+    mappings(loom.officialMojangMappings())
     modApi("net.fabricmc:fabric-loader:${project.fabric_loader_version}")
-
-    modApi("fi.dy.masa.malilib:malilib-fabric-${project.minecraft_version_masa}:${project.malilib_version}")
-    modApi("fi.dy.masa.minihud:minihud-fabric-${project.minecraft_version_masa}:${project.minihud_version}")
+    // Required library
+    modApi("top.hendrixshen.magiclib:magiclib:${project.library_magiclib_version}")
+    modApi("curse.maven:malilib-308892:${project.library_malilib_version}")
+    modApi("curse.maven:minihud-403928:${project.library_minihud_version}")
 }
 
-minecraft {
-}
-
-compileJava {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-    options.encoding = 'UTF-8'
-}
-
-group = project.group + "." + project.mod_id
-archivesBaseName = project.mod_file_name + '-mc' + project.minecraft_version_out
-version = project.mod_version_detail
-
-processResources
-{
+processResources {
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
@@ -51,40 +50,49 @@ processResources
     }
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    it.options.encoding = "UTF-8"
+    it.sourceCompatibility = JavaVersion.VERSION_1_8
+    it.targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+runClient {
+    defaultCharacterEncoding = "UTF-8"
+}
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+runServer {
+    defaultCharacterEncoding = "UTF-8"
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
 }
 
 jar {
-    from "LICENSE"
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(jar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            from components.java
         }
     }
 
     repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
     }
 }
 
